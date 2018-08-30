@@ -19,8 +19,8 @@ class GameSceneController: UIViewController {
         
         print(scene.name)
         for touch in touches {
-            let touchLocation = touch.locationInNode(scene)
-            let prevLocation = touch.previousLocationInNode(scene)
+            let touchLocation = touch.location(in: scene)
+            let prevLocation = touch.previousLocation(in: scene)
             let dX = touchLocation.x - prevLocation.x
             
             print(dX)
@@ -32,19 +32,19 @@ class GameSceneController: UIViewController {
                 if scene.name == "GameScene"
                 {
                 if ((sprite?.position.x)! + (dX)) >= -(sprite?.size.width)!/4   {
-                    sprite?.position = CGPointMake((sprite?.position.x)! + dX , (sprite?.position.y)!)
+                    sprite?.position = CGPoint(x: (sprite?.position.x)! + dX , y: (sprite?.position.y)!)
                 }
                 }
                  else if scene.name == "LifeStyleScene"
                 {
                     if ((sprite?.position.x)! + (dX)) >= -50 {
-                        sprite?.position = CGPointMake((sprite?.position.x)! + dX , (sprite?.position.y)!)
+                        sprite?.position = CGPoint(x: (sprite?.position.x)! + dX , y: (sprite?.position.y)!)
                     }
                 }
                 else if scene.name == "Magazine"
                 {
                     if ((sprite?.position.x)! + (dX)) >= 55   {
-                        sprite?.position = CGPointMake((sprite?.position.x)! + dX , (sprite?.position.y)!)
+                        sprite?.position = CGPoint(x: (sprite?.position.x)! + dX , y: (sprite?.position.y)!)
                     }
                   
                 }
@@ -52,14 +52,14 @@ class GameSceneController: UIViewController {
                 {
                     
                     if ((sprite?.position.x)! + (dX)) >= 90{
-                        sprite?.position = CGPointMake((sprite?.position.x)! + dX , (sprite?.position.y)!)
+                        sprite?.position = CGPoint( x: (sprite?.position.x)! + dX , y: (sprite?.position.y)!)
                     }
                     
                 }
             } else {
                 //Right Direction
                 if ((sprite?.position.x)! + (dX)) <= (sprite?.size.width)!/2 {
-                    sprite?.position = CGPointMake((sprite?.position.x)! + dX , (sprite?.position.y)!)
+                    sprite?.position = CGPoint(x: (sprite?.position.x)! + dX , y: (sprite?.position.y)!)
                 }
             }
         }

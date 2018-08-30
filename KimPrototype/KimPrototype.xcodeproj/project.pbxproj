@@ -265,13 +265,16 @@
 					74F7D3971C218024001D1A27 = {
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = NEBN9D8NT2;
+						LastSwiftMigration = 0920;
 					};
 					74F7D3AF1C218024001D1A27 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0920;
 						TestTargetID = 74F7D3971C218024001D1A27;
 					};
 					74F7D3BA1C218024001D1A27 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0920;
 						TestTargetID = 74F7D3971C218024001D1A27;
 					};
 				};
@@ -446,6 +449,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -483,6 +487,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -500,6 +505,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.niiu.prototypes;
 				PRODUCT_NAME = KimPrototype;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -516,6 +522,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.niiu.prototypes;
 				PRODUCT_NAME = KimPrototype;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -529,6 +536,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.niiu.KimPrototypeTests;
 				PRODUCT_NAME = KimPrototype;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KimPrototype.app/KimPrototype";
 			};
 			name = Debug;
@@ -541,6 +549,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.niiu.KimPrototypeTests;
 				PRODUCT_NAME = KimPrototype;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KimPrototype.app/KimPrototype";
 			};
 			name = Release;
@@ -553,6 +562,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.niiu.KimPrototypeUITests;
 				PRODUCT_NAME = KimPrototype;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = KimPrototype;
 				USES_XCTRUNNER = YES;
 			};
@@ -565,6 +575,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.niiu.KimPrototypeUITests;
 				PRODUCT_NAME = KimPrototype;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = KimPrototype;
 				USES_XCTRUNNER = YES;
 			};

@@ -49,19 +49,19 @@ class FTButtonNode: SKSpriteNode {
         self.disabledTexture = disabledTexture
         self.label = SKLabelNode(fontNamed: "Helvetica");
         
-        super.init(texture: defaultTexture, color: UIColor.blackColor(), size: defaultTexture.size())
+        super.init(texture: defaultTexture, color: UIColor.black, size: defaultTexture.size())
         
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
       //  self.label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Center;
-        self.label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center;
+        self.label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center;
       //  self.label.position = CGPoint(x: self.frame.size.width/2,y: self.frame.size.height/2)
         //self.label.color = UIColor.
-        self.label.color = UIColor.blackColor()
+        self.label.color = UIColor.black
         self.label.zPosition = 5
           self.addChild(self.label)
         // Adding this node as an empty layer. Without it the touch functions are not being called
         // The reason for this is unknown when this was implemented...?
-        let bugFixLayerNode = SKSpriteNode(texture: nil, color:UIColor.clearColor() , size: defaultTexture.size())
+        let bugFixLayerNode = SKSpriteNode(texture: nil, color:UIColor.clear , size: defaultTexture.size())
         bugFixLayerNode.position = self.position
         addChild(bugFixLayerNode)
         
@@ -73,8 +73,8 @@ class FTButtonNode: SKSpriteNode {
         
         switch buttonTarget {
         case let .aSelector(selector, target):
-            if target.respondsToSelector(selector) {
-                UIApplication.sharedApplication().sendAction(selector, to: target, from: self, forEvent: nil)
+            if target.responds(to:selector) {
+                UIApplication.shared.sendAction(selector, to: target, from: self, for: nil)
             }
         case let .aBlock(block):
             block()
@@ -82,9 +82,9 @@ class FTButtonNode: SKSpriteNode {
         
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)  {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)  {
          let touch: AnyObject! = touches.first
-        let touchLocation = touch.locationInNode(parent!)
+        let touchLocation = touch.location(in: parent!)
         
         if (!isEnabled) {
             return
@@ -92,7 +92,7 @@ class FTButtonNode: SKSpriteNode {
         isSelected = true
         
         if let act = actionTouchDown {
-            callTarget(act)
+            callTarget(buttonTarget: act)
         }
         
     }
@@ -102,20 +102,20 @@ class FTButtonNode: SKSpriteNode {
         self.label.text = title as String
         self.label.fontSize = fontSize
         self.label.fontName = font
-        self.label.fontColor = UIColor.blackColor()
+        self.label.fontColor = UIColor.black
         
       
         }
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)  {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)  {
         
         if (!isEnabled) {
             return
         }
         
           let touch: AnyObject! = touches.first
-        let touchLocation = touch.locationInNode(parent!)
+        let touchLocation = touch.location(in: parent!)
         
-        if (CGRectContainsPoint(frame, touchLocation)) {
+        if (frame.contains(touchLocation)) {
             isSelected = true
         } else {
             isSelected = false
@@ -126,8 +126,8 @@ class FTButtonNode: SKSpriteNode {
     func setScaleForLabel()
     {
         
-        let runSecond = SKAction.scaleXTo(0.3, y: 1.0, duration: 0.0)
-        self.label.runAction(runSecond)
+        let runSecond = SKAction.scaleX(to: 0.3, y: 1.0, duration: 0.0)
+        self.label.run(runSecond)
         
         self.label.position = CGPoint(x:0  , y:5 )
         //self.label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.Baseline;
@@ -137,7 +137,7 @@ class FTButtonNode: SKSpriteNode {
     
 
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if (!isEnabled) {
             return
@@ -146,17 +146,17 @@ class FTButtonNode: SKSpriteNode {
         isSelected = false
         
          let touch: AnyObject! = touches.first
-        let touchLocation = touch.locationInNode(parent!)
+        let touchLocation = touch.location(in: parent!)
         
-        if (CGRectContainsPoint(frame, touchLocation) ) {
+        if (frame.contains(touchLocation) ) {
             
             if let act = actionTouchUpInside {
-                callTarget(act)
+                callTarget(buttonTarget: act)
             }
         }
         
         if let act = actionTouchUp {
-            callTarget(act)
+            callTarget(buttonTarget: act)
         }
     }
 }

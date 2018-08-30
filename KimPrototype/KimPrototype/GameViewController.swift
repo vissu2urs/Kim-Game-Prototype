@@ -12,18 +12,18 @@ import SpriteKit
 
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
-        if let path = NSBundle.mainBundle().pathForResource(file as String, ofType: "sks") {
+        if let path = Bundle.main.path(forResource: file as String, ofType: "sks") {
             var sceneData: NSData?
             // Error occurs on the following line:
             do {
-                sceneData = try  NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
+                sceneData = try  NSData(contentsOfFile: path, options: .mappedIfSafe)
             } catch _ as NSError {
                 
             }
-            let archiver = NSKeyedUnarchiver(forReadingWithData: sceneData!)
+            let archiver = NSKeyedUnarchiver(forReadingWith: sceneData! as Data)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKNode
+            let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! SKNode
             archiver.finishDecoding()
             return scene
         } else {
@@ -38,7 +38,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
 
         if #available(iOS 9.0, *) {
-            if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
+            if let scene = GameScene.unarchiveFromFile(file: "GameScene") as? GameScene {
                 // Configure the view.
                 let skView = self.view as! SKView
                 skView.showsFPS = true
@@ -48,7 +48,7 @@ class GameViewController: UIViewController {
                 skView.ignoresSiblingOrder = true
                 
                 /* Set the scale mode to scale to fit the window */
-                scene.scaleMode = .AspectFill
+                scene.scaleMode = .aspectFill
                 
                 skView.presentScene(scene)
             }
@@ -57,24 +57,20 @@ class GameViewController: UIViewController {
         }
     }
 
-    override func shouldAutorotate() -> Bool {
+     func shouldAutorotate() -> Bool {
         return true
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
+     func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == . phone {
+        return .allButUpsideDown
         } else {
-            return .All
+            return .all
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
 
-    override func prefersStatusBarHidden() -> Bool {
+     func prefersStatusBarHidden() -> Bool {
         return true
     }
 

@@ -48,8 +48,8 @@ class GameScene: SKScene {
     var leftHandOriginalAngle: CGFloat = -83.872
     
     var backgroundMoving: Bool = false
-    var initialTouchLocation: CGPoint? = CGPointMake(0.0, 0.0)
-    var backgroundScreenSpritePosition: CGPoint? = CGPointMake(0.0, 0.0)
+    var initialTouchLocation: CGPoint? = CGPoint(x:0.0,y: 0.0)
+    var backgroundScreenSpritePosition: CGPoint? = CGPoint(x:0.0, y: 0.0)
     
     var vickiSprite: SKSpriteNode?
     
@@ -76,54 +76,54 @@ class GameScene: SKScene {
     var ShoeMoneyNode : SKSpriteNode?
     var ShoeProfileNode : SKSpriteNode?
     var ShoeNode : SKSpriteNode?
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
         
         SnowPartical()
         
-        backgroundSprite = self.childNodeWithName("Background") as? SKSpriteNode
-        CatBubble = backgroundSprite?.childNodeWithName("CatBubbleNode") as? SKSpriteNode
-        vickiSprite = backgroundSprite?.childNodeWithName("Vicki") as? SKSpriteNode
+        backgroundSprite = self.childNode(withName: "Background") as? SKSpriteNode
+        CatBubble = backgroundSprite?.childNode(withName: "CatBubbleNode") as? SKSpriteNode
+        vickiSprite = backgroundSprite?.childNode(withName:"Vicki") as? SKSpriteNode
         
         
-        lowerTorsoNode = backgroundSprite?.childNodeWithName("LowerTorso") as? SKSpriteNode
-        upperTorsoNode = lowerTorsoNode?.childNodeWithName("UpperTorso") as? SKSpriteNode
-        headNode = upperTorsoNode?.childNodeWithName("Head") as? SKSpriteNode
-        rightUpperLegNode = lowerTorsoNode?.childNodeWithName("RightUpperLeg") as? SKSpriteNode
-        leftUpperLegNode = lowerTorsoNode?.childNodeWithName("LeftUpperLeg") as? SKSpriteNode
-        rightLowerLegNode = rightUpperLegNode?.childNodeWithName("RightLowerLeg") as? SKSpriteNode
-        leftLoweLegNode = leftUpperLegNode?.childNodeWithName("LeftLowerLeg") as? SKSpriteNode
-        rightFootNode = rightLowerLegNode?.childNodeWithName("RightFoot") as? SKSpriteNode
-        leftFootNode = leftLoweLegNode?.childNodeWithName("LeftFoot") as? SKSpriteNode
-        leftHandUpperArmNode = upperTorsoNode?.childNodeWithName("LeftUpperArm") as? SKSpriteNode
-        leftHandLowerArmNode = leftHandUpperArmNode?.childNodeWithName("LeftLowerArm") as? SKSpriteNode
-        leftHandNode = leftHandLowerArmNode?.childNodeWithName("LeftWrist") as? SKSpriteNode
-        rightHandUpperArmNode = upperTorsoNode?.childNodeWithName("RightUpperArm") as? SKSpriteNode
-        rightHandLowerArmNode = rightHandUpperArmNode?.childNodeWithName("RightLowerArm") as? SKSpriteNode
-        rightHandNode = rightHandLowerArmNode?.childNodeWithName("RightWrist") as? SKSpriteNode
+        lowerTorsoNode = backgroundSprite?.childNode(withName:"LowerTorso") as? SKSpriteNode
+        upperTorsoNode = lowerTorsoNode?.childNode(withName:"UpperTorso") as? SKSpriteNode
+        headNode = upperTorsoNode?.childNode(withName:"Head") as? SKSpriteNode
+        rightUpperLegNode = lowerTorsoNode?.childNode(withName:"RightUpperLeg") as? SKSpriteNode
+        leftUpperLegNode = lowerTorsoNode?.childNode(withName:"LeftUpperLeg") as? SKSpriteNode
+        rightLowerLegNode = rightUpperLegNode?.childNode(withName:"RightLowerLeg") as? SKSpriteNode
+        leftLoweLegNode = leftUpperLegNode?.childNode(withName:"LeftLowerLeg") as? SKSpriteNode
+        rightFootNode = rightLowerLegNode?.childNode(withName:"RightFoot") as? SKSpriteNode
+        leftFootNode = leftLoweLegNode?.childNode(withName:"LeftFoot") as? SKSpriteNode
+        leftHandUpperArmNode = upperTorsoNode?.childNode(withName:"LeftUpperArm") as? SKSpriteNode
+        leftHandLowerArmNode = leftHandUpperArmNode?.childNode(withName:"LeftLowerArm") as? SKSpriteNode
+        leftHandNode = leftHandLowerArmNode?.childNode(withName:"LeftWrist") as? SKSpriteNode
+        rightHandUpperArmNode = upperTorsoNode?.childNode(withName:"RightUpperArm") as? SKSpriteNode
+        rightHandLowerArmNode = rightHandUpperArmNode?.childNode(withName:"RightLowerArm") as? SKSpriteNode
+        rightHandNode = rightHandLowerArmNode?.childNode(withName:"RightWrist") as? SKSpriteNode
         
         initiateCharacterAnimations()
         vickiAnimation()
-        BallNode = backgroundSprite?.childNodeWithName("BallNode")as? SKSpriteNode
-        ProfileBallNode = backgroundSprite?.childNodeWithName("ProfileBallNode")as? SKSpriteNode
-        ShoeProfileNode = backgroundSprite?.childNodeWithName("ShoeProfileNode")as? SKSpriteNode
-        ShoeMoneyNode = backgroundSprite?.childNodeWithName("ShoeMoneyNode")as? SKSpriteNode
-        ShoeNode = backgroundSprite?.childNodeWithName("ShoeNode")as? SKSpriteNode
-        BallNode?.hidden = true
-        ProfileBallNode?.hidden = true
-        ShoeProfileNode?.hidden = true
-        ShoeMoneyNode?.hidden = true
+        BallNode = backgroundSprite?.childNode(withName:"BallNode")as? SKSpriteNode
+        ProfileBallNode = backgroundSprite?.childNode(withName:"ProfileBallNode")as? SKSpriteNode
+        ShoeProfileNode = backgroundSprite?.childNode(withName:"ShoeProfileNode")as? SKSpriteNode
+        ShoeMoneyNode = backgroundSprite?.childNode(withName:"ShoeMoneyNode")as? SKSpriteNode
+        ShoeNode = backgroundSprite?.childNode(withName:"ShoeNode")as? SKSpriteNode
+        BallNode?.isHidden = true
+        ProfileBallNode?.isHidden = true
+        ShoeProfileNode?.isHidden = true
+        ShoeMoneyNode?.isHidden = true
         
-        let borderBody = SKPhysicsBody(edgeLoopFromRect: CGRectMake(0,120, 1024, 768))
+        let borderBody = SKPhysicsBody(edgeLoopFrom: CGRect(x:0,y:120,width: 1024,height: 768))
         // 2. Set the friction of that physicsBody to 0
         borderBody.friction = 0
         // 3. Set physicsBody of scene to borderBody
         self.physicsBody = borderBody//         BallNode?.physicsBody?.gravity
         
         
-        alertBoxNode = backgroundSprite?.childNodeWithName("AlertNode") as? SKSpriteNode
-        okButtonNode =  alertBoxNode?.childNodeWithName("OkNode") as? SKSpriteNode
-        alertBoxNode?.hidden =  true
+        alertBoxNode = backgroundSprite?.childNode(withName:"AlertNode") as? SKSpriteNode
+        okButtonNode =  alertBoxNode?.childNode(withName:"OkNode") as? SKSpriteNode
+        alertBoxNode?.isHidden =  true
         ButtonsSetup()
         BubbleSetup()
 
@@ -133,9 +133,9 @@ class GameScene: SKScene {
     func SnowPartical()
     {
         //snow partical
-        let path = NSBundle.mainBundle().pathForResource("SnowParticle", ofType: "sks")
-        let rainParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as! SKEmitterNode
-        rainParticle.position = CGPointMake(self.size.width/2, self.size.height)
+        let path = Bundle.main.path(forResource: "SnowParticle", ofType: "sks")
+        let rainParticle = NSKeyedUnarchiver.unarchiveObject(withFile: path!) as! SKEmitterNode
+        rainParticle.position = CGPoint(x:self.size.width/2, y:self.size.height)
         rainParticle.name = "rainParticle"
         rainParticle.targetNode = self.scene
         rainParticle.zPosition = 100
@@ -155,14 +155,14 @@ class GameScene: SKScene {
         BodyNode.physicsBody!.restitution = 0.6
         BodyNode.physicsBody?.affectedByGravity = true
         BodyNode.physicsBody?.density =  2.0
-        BodyNode.physicsBody!.velocity=CGVectorMake(velocityx, velocityy)
+        BodyNode.physicsBody!.velocity=CGVector(dx:velocityx,dy: velocityy)
         BodyNode.physicsBody?.usesPreciseCollisionDetection = false
         
-        let waitZoomAction = SKAction.waitForDuration(2.3)
-        let runAction = SKAction.runBlock {
+        let waitZoomAction = SKAction.wait(forDuration:2.3)
+        let run = SKAction.run {
             BodyNode.physicsBody = nil
         }
-        BodyNode.runAction(SKAction.sequence([waitZoomAction,runAction]))
+        BodyNode.run(SKAction.sequence([waitZoomAction,run]))
         
     }
     
@@ -174,7 +174,7 @@ class GameScene: SKScene {
         let BubbleButtonPressedTexture1 = SKTexture(imageNamed: "Bubble");
         bubbleButton1 = FTButtonNode(normalTexture:BubbleButtonTexture1, selectedTexture:BubbleButtonPressedTexture1, disabledTexture:BubbleButtonTexture1);
         //PopGlamButton.setButtonLabel("Play",font: "Helvetica",fontSize: 40);
-        bubbleButton1!.position = CGPoint(x:CGRectGetMinX(self.CatBubble!.frame)-85, y:CGRectGetMinY(self.CatBubble!.frame)-55);
+        bubbleButton1!.position = CGPoint(x:(self.CatBubble!.frame.minX)-85, y:(self.CatBubble!.frame.minY)-55);
         bubbleButton1!.size = CGSize(width: 230, height: 70)
         bubbleButton1!.zPosition = 2
         self.backgroundSprite!.addChild(bubbleButton1!);
@@ -187,17 +187,17 @@ class GameScene: SKScene {
             self.myLabel2?.removeFromParent()
             self.myLabel3?.removeFromParent()
             
-            let zoomInAction1 = SKAction.scaleTo(1, duration: 1)
+            let zoomInAction1 = SKAction.scale(to: 1, duration: 1)
             
-            self.backgroundSprite!.runAction(SKAction.sequence([zoomInAction1]))
+            self.backgroundSprite!.run(SKAction.sequence([zoomInAction1]))
         })
         
         
         myLabel1 = SKLabelNode(fontNamed: "Arial")
         myLabel1!.text = "(Adopt. )"
         myLabel1!.fontSize = 15
-        myLabel1!.fontColor = UIColor.blackColor()
-        myLabel1!.position = CGPoint(x:CGRectGetMidX(self.bubbleButton1!.frame)-10, y:CGRectGetMidY(self.bubbleButton1!.frame)-3)
+        myLabel1!.fontColor = UIColor.black
+        myLabel1!.position = CGPoint(x:(self.bubbleButton1!.frame.midX)-10, y:(self.bubbleButton1!.frame.midY)-3)
         myLabel1!.zPosition = 10
         backgroundSprite!.addChild(myLabel1!)
         
@@ -205,57 +205,57 @@ class GameScene: SKScene {
         let BubbleButtonPressedTexture = SKTexture(imageNamed: "OrangeBubble");
         bubbleButton2 = FTButtonNode(normalTexture:BubbleButtonTexture, selectedTexture:BubbleButtonPressedTexture, disabledTexture:BubbleButtonTexture);
         //PopGlamButton.setButtonLabel("Play",font: "Helvetica",fontSize: 40);
-        bubbleButton2!.position = CGPoint(x:CGRectGetMinX(self.CatBubble!.frame)-85, y:CGRectGetMinY(self.CatBubble!.frame)-110);
+        bubbleButton2!.position = CGPoint(x:(self.CatBubble!.frame.minX)-85, y:(self.CatBubble!.frame.minY)-110);
         bubbleButton2!.size = CGSize(width: 230, height: 70)
         bubbleButton2!.zPosition = 2
         self.backgroundSprite!.addChild(bubbleButton2!);
         bubbleButton2!.actionTouchUpInside = FTButtonTarget.aBlock({ () -> Void in
             self.check = false
-            self.myLabel3?.hidden = true
+            self.myLabel3?.isHidden = true
             
-            let zoomInAction1 = SKAction.scaleTo(1, duration: 1)
-            let runAction = SKAction.runBlock {
-                self.bubbleButton?.hidden = false
+            let zoomInAction1 = SKAction.scale(to: 1, duration: 1)
+            let run = SKAction.run {
+                self.bubbleButton?.isHidden = false
                 self.isEnabled = true
             }
-            self.CatBubble!.runAction(SKAction.scaleXTo(0.095,y:0.212, duration: 0.8))
+            self.CatBubble!.run(SKAction.scaleX(to: 0.095,y:0.212, duration: 0.8))
             
             
-            let waitZoomAction = SKAction.waitForDuration(1)
-            self.backgroundSprite! .runAction(SKAction.sequence([zoomInAction1,waitZoomAction,runAction]))
+            let waitZoomAction = SKAction.wait(forDuration:1)
+            self.backgroundSprite! .run(SKAction.sequence([zoomInAction1,waitZoomAction,run]))
             self.check = true
             
-            self.bubbleButton1?.hidden = true
-            self.myLabel1?.hidden = true
-            self.bubbleButton2?.hidden = true
-            self.myLabel2?.hidden = true
-            self.CatBubble!.runAction(SKAction.moveToX(-149.841,duration: 0.8))
+            self.bubbleButton1?.isHidden = true
+            self.myLabel1?.isHidden = true
+            self.bubbleButton2?.isHidden = true
+            self.myLabel2?.isHidden = true
+            self.CatBubble!.run(SKAction.moveTo(x: -149.841,duration: 0.8))
             
         })
         
          myLabel2 = SKLabelNode(fontNamed: "Arial")
         myLabel2!.text = "(Lee it alone.)"
         myLabel2!.fontSize = 15
-        myLabel2!.fontColor = UIColor.blackColor()
-        myLabel2!.position = CGPoint(x:CGRectGetMidX(self.bubbleButton2!.frame)-20, y:CGRectGetMidY(self.bubbleButton2!.frame)-3)
+        myLabel2!.fontColor = UIColor.black
+        myLabel2!.position = CGPoint(x:(self.bubbleButton2!.frame.midX)-20, y:(self.bubbleButton2!.frame.midY)-3)
         myLabel2!.zPosition = 10
         backgroundSprite!.addChild(myLabel2!)
-        self.bubbleButton2?.hidden = true
-        self.myLabel2?.hidden = true
-        self.bubbleButton1?.hidden = true
-        self.myLabel1?.hidden = true
+        self.bubbleButton2?.isHidden = true
+        self.myLabel2?.isHidden = true
+        self.bubbleButton1?.isHidden = true
+        self.myLabel1?.isHidden = true
         
         
         myLabel3 = SKLabelNode(fontNamed: "AvenirNext-Bold")
         myLabel3!.text = "Meow …"
         myLabel3!.fontSize = 20
-        myLabel3!.fontColor = UIColor.blackColor()
-        myLabel3!.position = CGPoint(x:CGRectGetMaxX(self.CatBubble!.frame)-110, y:CGRectGetMidY(self.CatBubble!.frame))
+        myLabel3!.fontColor = UIColor.black
+        myLabel3!.position = CGPoint(x:(self.CatBubble!.frame.maxX)-110, y:(self.CatBubble!.frame.midY))
         myLabel3!.zPosition = 11
         
         self.backgroundSprite!.addChild(myLabel3!)
-        self.messageButton?.hidden = true
-        self.myLabel3?.hidden = true
+        self.messageButton?.isHidden = true
+        self.myLabel3?.isHidden = true
         
         
     }
@@ -271,21 +271,21 @@ class GameScene: SKScene {
         let buttonPressedTexture = SKTexture(imageNamed: "CircleButtonTouchUp");
         let  PopGlamButton = FTButtonNode(normalTexture:buttonTexture, selectedTexture:buttonPressedTexture, disabledTexture:buttonPressedTexture);
         //PopGlamButton.setButtonLabel("Play",font: "Helvetica",fontSize: 40);
-        PopGlamButton.position = CGPointMake(-404.576 , -87.216);
+        PopGlamButton.position = CGPoint(x:-404.576, y: -87.216);
         PopGlamButton.size = CGSize(width: 90, height: 80)
         PopGlamButton.zPosition = 2
         self.backgroundSprite!.addChild(PopGlamButton);
         
         PopGlamButton.actionTouchUpInside = FTButtonTarget.aBlock({ () -> Void in
             print("button touched")
-            let transition = SKTransition.revealWithDirection(.Right, duration: 0.8)
-            if let scene = MagazineScene.unarchiveFromFile("MagazineScene") as? MagazineScene {
+            let transition = SKTransition.reveal(with: .right, duration: 0.8)
+            if let scene = MagazineScene.unarchiveFromFile(file: "MagazineScene") as? MagazineScene {
                 // Configure the view.
                 let skView = self.view! as SKView
                 skView.showsFPS = true
                 skView.showsNodeCount = true
                 skView.ignoresSiblingOrder = true
-                scene.scaleMode = .AspectFill
+                scene.scaleMode = .aspectFill
                 skView.presentScene(scene,transition: transition)
             }
             
@@ -300,21 +300,21 @@ class GameScene: SKScene {
         let LifeStyleButtonPressedTexture = SKTexture(imageNamed: "HomeGreenTouchUp");
         let  LifeStyleButton = FTButtonNode(normalTexture:LifeStyleButtonTexture, selectedTexture:LifeStyleButtonPressedTexture, disabledTexture:buttonPressedTexture);
         //PopGlamButton.setButtonLabel("Play",font: "Helvetica",fontSize: 40);
-        LifeStyleButton.position = CGPointMake(+577.728 , -87.216);
+        LifeStyleButton.position = CGPoint(x: +577.728 , y: -87.216);
         LifeStyleButton.size = CGSize(width: 90, height: 80)
         LifeStyleButton.zPosition = 2
         self.backgroundSprite!.addChild(LifeStyleButton);
         
         LifeStyleButton.actionTouchUpInside = FTButtonTarget.aBlock({ () -> Void in
              print("button touched")
-            let transition = SKTransition.revealWithDirection(.Right, duration: 0.8)
-            if let scene = LifeStyleScene.unarchiveFromFile("LifeStyleScene") as? LifeStyleScene {
+            let transition = SKTransition.reveal(with: .right, duration: 0.8)
+            if let scene = LifeStyleScene.unarchiveFromFile(file: "LifeStyleScene") as? LifeStyleScene {
                 // Configure the view.
                 let skView = self.view! as SKView
                 skView.showsFPS = true
                 skView.showsNodeCount = true
                 skView.ignoresSiblingOrder = true
-                scene.scaleMode = .AspectFill
+                scene.scaleMode = .aspectFill
                 skView.presentScene(scene,transition: transition)
             }
             
@@ -332,7 +332,7 @@ class GameScene: SKScene {
             let soChicButtonPressedTexture = SKTexture(imageNamed: "BuildingButtonTouchUp");
             soChicButton   = FTButtonNode(normalTexture:soChicButtonTexture, selectedTexture:soChicButtonPressedTexture, disabledTexture:soChicButtonTexture);
         }
-        soChicButton.position = CGPointMake(1800 , -87.216);
+        soChicButton.position = CGPoint(x:1800 , y:-87.216);
         soChicButton.size = CGSize(width: 90, height: 80)
         soChicButton.zPosition = 5
         self.backgroundSprite!.addChild(soChicButton);
@@ -342,18 +342,18 @@ class GameScene: SKScene {
             
             if self.isLockToSoChick
             {
-                self.alertBoxNode?.hidden =  false
+                self.alertBoxNode?.isHidden =  false
             }else
             {
                 print("button touched")
-                let transition = SKTransition.revealWithDirection(.Right, duration: 0.8)
-                if let scene = SoChicScene.unarchiveFromFile("SoChicScene") as? SoChicScene {
+                let transition = SKTransition.reveal(with: .right, duration: 0.8)
+                if let scene = SoChicScene.unarchiveFromFile(file: "SoChicScene") as? SoChicScene {
                     // Configure the view.
                     let skView = self.view! as SKView
                     skView.showsFPS = true
                     skView.showsNodeCount = true
                     skView.ignoresSiblingOrder = true
-                    scene.scaleMode = .AspectFill
+                    scene.scaleMode = .aspectFill
                     skView.presentScene(scene,transition: transition)
                 }
             }
@@ -364,21 +364,21 @@ class GameScene: SKScene {
         let guardButtonPressedTexture = SKTexture(imageNamed: "GuardTouchUp");
         let  guardButton = FTButtonNode(normalTexture:guardButtonTexture, selectedTexture:guardButtonPressedTexture, disabledTexture:guardButtonTexture);
         //PopGlamButton.setButtonLabel("Play",font: "Helvetica",fontSize: 40);
-        guardButton.position = CGPointMake(267 , 59.756);
+        guardButton.position = CGPoint(x:267 , y: 59.756);
         guardButton.size = CGSize(width: 70, height: 260)
         guardButton.zPosition = 5
          self.backgroundSprite!.addChild(guardButton);
         guardButton.actionTouchUpInside = FTButtonTarget.aBlock({ () -> Void in
-            let zoomInAction1 = SKAction.scaleTo(1.1, duration: 0.3)
-            let runAction = SKAction.scaleTo(1.0, duration: 0.3)
-            let waitZoomAction = SKAction.waitForDuration(0.2)
-            guardButton.runAction(SKAction.sequence([zoomInAction1,waitZoomAction,runAction]))
+            let zoomInAction1 = SKAction.scale(to: 1.1, duration: 0.3)
+            let run = SKAction.scale(to: 1.0, duration: 0.3)
+            let waitZoomAction = SKAction.wait(forDuration:0.2)
+            guardButton.run(SKAction.sequence([zoomInAction1,waitZoomAction,run]))
             
             print("button touched")
-            self.BallNode?.hidden = false
-            self.ProfileBallNode?.hidden = false
-            self.addPhysicsToBody(self.BallNode!,velocityx:100,velocityy: 100 )
-            self.addPhysicsToBody(self.ProfileBallNode!,velocityx:200,velocityy: 200 )
+            self.BallNode?.isHidden = false
+            self.ProfileBallNode?.isHidden = false
+            self.addPhysicsToBody(BodyNode: self.BallNode!,velocityx:100,velocityy: 100 )
+            self.addPhysicsToBody(BodyNode: self.ProfileBallNode!,velocityx:200,velocityy: 200 )
             
         })
         
@@ -387,7 +387,7 @@ class GameScene: SKScene {
         
         let  shoeButton = FTButtonNode(normalTexture:shoeButtonTexture, selectedTexture:ShoeButtonPressedTexture, disabledTexture:shoeButtonTexture);
         //PopGlamButton.setButtonLabel("Play",font: "Helvetica",fontSize: 40);
-        shoeButton.position = CGPointMake(-730 , -135);
+        shoeButton.position = CGPoint(x:-730 ,y: -135);
         shoeButton.size = CGSize(width: 110, height: 160)
         shoeButton.zPosition = 5
         
@@ -396,16 +396,16 @@ class GameScene: SKScene {
         
         shoeButton.actionTouchUpInside = FTButtonTarget.aBlock({ () -> Void in
             
-              let zoomInAction1 = SKAction.scaleTo(1.1, duration: 0.3)
-            let runAction = SKAction.scaleTo(1.0, duration: 0.3)
-            let waitZoomAction = SKAction.waitForDuration(0.2)
-            shoeButton.runAction(SKAction.sequence([zoomInAction1,waitZoomAction,runAction]))
+            let zoomInAction1 = SKAction.scale(to: 1.1, duration: 0.3)
+            let run = SKAction.scale(to: 1.0, duration: 0.3)
+            let waitZoomAction = SKAction.wait(forDuration: 0.2)
+            shoeButton.run(SKAction.sequence([zoomInAction1,waitZoomAction,run]))
             
             print("button touched")
-            self.ShoeProfileNode?.hidden = false
-            self.ShoeMoneyNode?.hidden = false
-            self.addPhysicsToBody(self.ShoeProfileNode!,velocityx:100,velocityy: 100 )
-            self.addPhysicsToBody(self.ShoeMoneyNode!,velocityx:200,velocityy: 200 )
+            self.ShoeProfileNode?.isHidden = false
+            self.ShoeMoneyNode?.isHidden = false
+            self.addPhysicsToBody(BodyNode: self.ShoeProfileNode!,velocityx:100,velocityy: 100 )
+            self.addPhysicsToBody(BodyNode: self.ShoeMoneyNode!,velocityx:200,velocityy: 200 )
             
         })
         
@@ -416,12 +416,13 @@ class GameScene: SKScene {
     
     func vickiAnimation () {
         
+    
         let vickiTextureAtlas = SKTextureAtlas(named: "Vicki")
         let vickiTextureNames = vickiTextureAtlas.textureNames as Array
-        let sortedVickiTextureNames = vickiTextureNames.sort { (var s1, var s2) -> Bool in
-            s1 = s1.stringByReplacingOccurrencesOfString(".png", withString: "")
-            s2 = s2.stringByReplacingOccurrencesOfString(".png", withString: "")
-            return Int(s1) < Int(s2)
+        let sortedVickiTextureNames = vickiTextureNames.sorted { (  s1,  s2) -> Bool in
+           // s1 = s1.stringByReplacingOccurrencesOfString(".png", withString: "")
+           // s2 = s2.stringByReplacingOccurrencesOfString(".png", withString: "")
+            return s1 < s2
         }
         
         var vickiTexturesArray = [SKTexture]()
@@ -432,179 +433,179 @@ class GameScene: SKScene {
             vickiTexturesArray.append(vickiTexture)
         }
         
-        let vickiHandAction = SKAction.animateWithTextures(vickiTexturesArray, timePerFrame: 0.25, resize: false, restore: true)
+        let vickiHandAction = SKAction.animate(with: vickiTexturesArray, timePerFrame: 0.25, resize: false, restore: true)
         
-        vickiSprite?.runAction(SKAction.repeatActionForever(vickiHandAction))
+        vickiSprite?.run(SKAction.repeatForever(vickiHandAction))
         
     }
     
     func initiateCharacterAnimations() {
-        let animationDelayZero = SKAction.waitForDuration(1.5)
-        let animationDelay = SKAction.waitForDuration(3.0)
+        let animationDelayZero = SKAction.wait(forDuration:1.5)
+        let animationDelay = SKAction.wait(forDuration:3.0)
         
-        let animateLeftUpperArm = SKAction.rotateToAngle(CGFloat(50.0).degreesToRadians(), duration: 0.5)
-        let animateLeftLowerArm = SKAction.rotateToAngle(CGFloat(-80.0).degreesToRadians(), duration: 0.5)
-        let upperTorsoAnimation = SKAction.rotateToAngle(CGFloat(2.0).degreesToRadians(), duration: 0.5)
+        let animateLeftUpperArm = SKAction.rotate(toAngle:CGFloat(50.0).degreesToRadians(), duration: 0.5)
+        let animateLeftLowerArm = SKAction.rotate(toAngle:CGFloat(-80.0).degreesToRadians(), duration: 0.5)
+        let upperTorsoAnimation = SKAction.rotate(toAngle:CGFloat(2.0).degreesToRadians(), duration: 0.5)
         
-        let collectiveHandAnimation = SKAction.runBlock({
-            self.leftHandUpperArmNode?.runAction(animateLeftUpperArm)
-            self.leftHandLowerArmNode?.runAction(animateLeftLowerArm)
-            self.upperTorsoNode?.runAction(upperTorsoAnimation)
+        let collectiveHandAnimation = SKAction.run({
+            self.leftHandUpperArmNode?.run(animateLeftUpperArm)
+            self.leftHandLowerArmNode?.run(animateLeftLowerArm)
+            self.upperTorsoNode?.run(upperTorsoAnimation)
         })
         
         let initialAnimationSequence = SKAction.sequence([animationDelay, collectiveHandAnimation])
         
-        let restoreLeftUpperArmAnimation = SKAction.rotateToAngle(CGFloat(leftUpperArmOriginalAngle).degreesToRadians(), duration: 0.5)
-        let restoreLeftLowerArmAnimation = SKAction.rotateToAngle(CGFloat(leftLowerArmOriginalAngle).degreesToRadians(), duration: 0.5)
-        let restoreTorsoAnimation = SKAction.rotateToAngle(CGFloat(upperTorsoOriginalAngle).degreesToRadians(), duration: 0.5)
+        let restoreLeftUpperArmAnimation = SKAction.rotate(toAngle:CGFloat(leftUpperArmOriginalAngle).degreesToRadians(), duration: 0.5)
+        let restoreLeftLowerArmAnimation = SKAction.rotate(toAngle:CGFloat(leftLowerArmOriginalAngle).degreesToRadians(), duration: 0.5)
+        let restoreTorsoAnimation = SKAction.rotate(toAngle:CGFloat(upperTorsoOriginalAngle).degreesToRadians(), duration: 0.5)
         
-        let restoreCollectiveHandAnimation = SKAction.runBlock({
-            self.leftHandUpperArmNode?.runAction(restoreLeftUpperArmAnimation)
-            self.leftHandLowerArmNode?.runAction(restoreLeftLowerArmAnimation)
-            self.upperTorsoNode?.runAction(restoreTorsoAnimation)
+        let restoreCollectiveHandAnimation = SKAction.run({
+            self.leftHandUpperArmNode?.run(restoreLeftUpperArmAnimation)
+            self.leftHandLowerArmNode?.run(restoreLeftLowerArmAnimation)
+            self.upperTorsoNode?.run(restoreTorsoAnimation)
         })
         
         let restoreAnimationSequence = SKAction.sequence([animationDelay, restoreCollectiveHandAnimation])
         
-        //let animateRightUpperLeg = SKAction.rotateToAngle(CGFloat(0.0).degreesToRadians(), duration: 0.3)
-        //let restoreRightUpperLeg = SKAction.rotateToAngle(CGFloat(rightUpperLegOriginalAngle).degreesToRadians(), duration: 0.3)
+        //let animateRightUpperLeg = SKAction.rotate(toAngle:CGFloat(0.0).degreesToRadians(), duration: 0.3)
+        //let restoreRightUpperLeg = SKAction.rotate(toAngle:CGFloat(rightUpperLegOriginalAngle).degreesToRadians(), duration: 0.3)
         //let legAnimation = SKAction.sequence([animationDelayZero, animateRightUpperLeg, restoreRightUpperLeg])
         //let rightLegAnimation = SKAction.repeatAction(legAnimation, count: 2)
-        //_ = SKAction.runBlock({
-        //    self.rightUpperLegNode?.runAction(legAnimation)
+        //_ = SKAction.run({
+        //    self.rightUpperLegNode?.run(legAnimation)
         //})
         
-        //let animateLeftUpperLeg = SKAction.rotateToAngle(CGFloat(-5.506).degreesToRadians(), duration: 0.6)
-        //let restoreLeftUpperLeg = SKAction.rotateToAngle(CGFloat(leftUpperLegOriginalAngle).degreesToRadians(), duration: 0.6)
+        //let animateLeftUpperLeg = SKAction.rotate(toAngle:CGFloat(-5.506).degreesToRadians(), duration: 0.6)
+        //let restoreLeftUpperLeg = SKAction.rotate(toAngle:CGFloat(leftUpperLegOriginalAngle).degreesToRadians(), duration: 0.6)
         //let leftUpperLegAnimationSequence = SKAction.sequence([animationDelayZero, animateLeftUpperLeg, restoreLeftUpperLeg])
-        //let collectiveLeftUpperLegAnimation = SKAction.runBlock({
-        //    self.leftUpperLegNode?.runAction(leftUpperLegAnimationSequence)
+        //let collectiveLeftUpperLegAnimation = SKAction.run({
+        //    self.leftUpperLegNode?.run(leftUpperLegAnimationSequence)
         //})
         
         //head animation
         let changeHeadTextureAnimation = SKAction.setTexture(SKTexture(image: UIImage(named: "HeadEyesClosed")!))
         let restoreHeadTextureAnimation = SKAction.setTexture(SKTexture(image: UIImage(named: "Head")!))
-        let blinkRepetation = SKAction.sequence([changeHeadTextureAnimation, SKAction.waitForDuration(0.1),restoreHeadTextureAnimation])
+        let blinkRepetation = SKAction.sequence([changeHeadTextureAnimation, SKAction.wait(forDuration:0.1),restoreHeadTextureAnimation])
         let headAnimationSequence = SKAction.sequence([animationDelayZero, blinkRepetation])
-        let finalHeadAnimation = SKAction.runBlock({
-            self.headNode?.runAction(headAnimationSequence)
+        let finalHeadAnimation = SKAction.run({
+            self.headNode?.run(headAnimationSequence)
         })
         
-        let animateLeftUpperArmTwo = SKAction.rotateToAngle(CGFloat(105.0).degreesToRadians(), duration: 0.5)
-        let animateLeftWrist = SKAction.rotateToAngle(CGFloat(-76.0).degreesToRadians(), duration: 0.2)
-        let restoreLeftWrist = SKAction.rotateToAngle(CGFloat(leftHandOriginalAngle).degreesToRadians(), duration: 0.2)
-        let leftWristAnimationSequence = SKAction.sequence([animateLeftWrist, SKAction.waitForDuration(0.2), restoreLeftWrist, animateLeftWrist, SKAction.waitForDuration(0.2), restoreLeftWrist])
-        let leftWristAnimationFinal = SKAction.runBlock({
-            self.leftHandNode?.runAction(leftWristAnimationSequence)
+        let animateLeftUpperArmTwo = SKAction.rotate(toAngle: CGFloat(105.0).degreesToRadians(), duration: 0.5)
+        let animateLeftWrist = SKAction.rotate(toAngle:CGFloat(-76.0).degreesToRadians(), duration: 0.2)
+        let restoreLeftWrist = SKAction.rotate(toAngle:CGFloat(leftHandOriginalAngle).degreesToRadians(), duration: 0.2)
+        let leftWristAnimationSequence = SKAction.sequence([animateLeftWrist, SKAction.wait(forDuration:0.2), restoreLeftWrist, animateLeftWrist, SKAction.wait(forDuration:0.2), restoreLeftWrist])
+        let leftWristAnimationFinal = SKAction.run({
+            self.leftHandNode?.run(leftWristAnimationSequence)
         })
         let animateLeftHandSequence = SKAction.sequence([animationDelayZero, animateLeftUpperArmTwo, leftWristAnimationFinal, animationDelayZero, restoreLeftUpperArmAnimation])
-        let leftHandAnimationTwo = SKAction.runBlock({
-            self.leftHandUpperArmNode?.runAction(animateLeftHandSequence)
+        let leftHandAnimationTwo = SKAction.run({
+            self.leftHandUpperArmNode?.run(animateLeftHandSequence)
         })
         
         
         
         let finalAnimationSequence = SKAction.sequence([initialAnimationSequence, finalHeadAnimation, restoreAnimationSequence, finalHeadAnimation, animationDelayZero, leftHandAnimationTwo, animationDelayZero])
-        let finalAnimation = SKAction.repeatActionForever(finalAnimationSequence)
+        let finalAnimation = SKAction.repeatForever(finalAnimationSequence)
         
-        self.runAction(finalAnimation)
+        self.run(finalAnimation)
     }
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        GameSceneController.sharedInstance.handleTouchMove(touches, sprite: backgroundSprite, scene: self)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        GameSceneController.sharedInstance.handleTouchMove(touches: touches, sprite: backgroundSprite, scene: self)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
         
         if isEnabled
         {
             for touch: AnyObject in touches {
-                let location = touch.locationInNode(backgroundSprite!)
+                let location = touch.location(in: backgroundSprite!)
                 
-                if CatBubble!.containsPoint(location)  {
+                if CatBubble!.contains(location)  {
                     self.isEnabled = false
                     if check
                     {
                         print("tapped!")
-                        self.CatBubble!.runAction(SKAction.moveToX((CatBubble?.frame.origin.x)!-40,duration: 0.8))
-                        self.CatBubble!.runAction(SKAction.scaleXTo(0.4, y : 0.4 ,duration: 0.8))
+                        self.CatBubble!.run(SKAction.moveTo(x: (CatBubble?.frame.origin.x)!-40,duration: 0.8))
+                        self.CatBubble!.run(SKAction.scaleX(to: 0.4, y : 0.4 ,duration: 0.8))
                         //  bubbleButton.transform = CGAffineTransformMakeScale(2, 2)
-                        let waitAction = SKAction.waitForDuration(1.0)
-                        let run = SKAction.runBlock {
-                            self.bubbleButton1?.hidden = false
-                            self.myLabel1?.hidden = false
+                        let waitAction = SKAction.wait(forDuration:1.0)
+                        let run = SKAction.run {
+                            self.bubbleButton1?.isHidden = false
+                            self.myLabel1?.isHidden = false
                         }
                         
-                        let zoomInAction = SKAction.runBlock {
-                            self.backgroundSprite!.runAction(SKAction.scaleTo(1.1, duration: 0.8))
+                        let zoomInAction = SKAction.run {
+                            self.backgroundSprite!.run(SKAction.scale(to: 1.1, duration: 0.8))
                         }
-                        let alertBox = SKAction.runBlock {
-                            self.bubbleButton?.hidden = false
-                            self.myLabel3?.hidden = false
+                        let alertBox = SKAction.run {
+                            self.bubbleButton?.isHidden = false
+                            self.myLabel3?.isHidden = false
                         }
                         
-                        let waitZoomAction = SKAction.waitForDuration(0.8)
-                        let waitSecondAction = SKAction.waitForDuration(0.3)
-                        let runSecond = SKAction.runBlock {
+                        let waitZoomAction = SKAction.wait(forDuration: 0.8)
+                        let waitSecondAction = SKAction.wait(forDuration:0.3)
+                        let runSecond = SKAction.run {
                             
-                            self.bubbleButton2?.hidden = false
-                            self.myLabel2?.hidden = false
+                            self.bubbleButton2?.isHidden = false
+                            self.myLabel2?.isHidden = false
                             self.isEnabled = true
                         }
                         
-                        self.runAction(SKAction.sequence([zoomInAction,waitZoomAction,alertBox,waitAction,run,waitSecondAction,runSecond]))
+                        self.run(SKAction.sequence([zoomInAction,waitZoomAction,alertBox,waitAction,run,waitSecondAction,runSecond]))
                         check = false
                         
                     }
                     else
                         
                     {
-                        self.myLabel3?.hidden = true
-                        let zoomInAction1 = SKAction.scaleTo(1, duration: 1)
-                        let runAction = SKAction.runBlock {
-                            self.bubbleButton?.hidden = false
+                        self.myLabel3?.isHidden = true
+                        let zoomInAction1 = SKAction.scale(to: 1, duration: 1)
+                        let run = SKAction.run {
+                            self.bubbleButton?.isHidden = false
                             self.isEnabled = true
                         }
-                        self.CatBubble!.runAction(SKAction.scaleXTo(0.095,y:0.212, duration: 0.8))
-                        let waitZoomAction = SKAction.waitForDuration(1)
-                        self.backgroundSprite!.runAction(SKAction.sequence([zoomInAction1,waitZoomAction,runAction]))
+                        self.CatBubble!.run(SKAction.scaleX(to: 0.095,y:0.212, duration: 0.8))
+                        let waitZoomAction = SKAction.wait(forDuration: 1)
+                        self.backgroundSprite!.run(SKAction.sequence([zoomInAction1,waitZoomAction,run]))
                         check = true
-                        self.messageButton?.hidden = true
-                        self.bubbleButton1?.hidden = true
-                        self.myLabel1?.hidden = true
-                        self.bubbleButton2?.hidden = true
-                        self.myLabel2?.hidden = true
-                        self.CatBubble!.runAction(SKAction.moveToX(-149.841,duration: 0.8))
+                        self.messageButton?.isHidden = true
+                        self.bubbleButton1?.isHidden = true
+                        self.myLabel1?.isHidden = true
+                        self.bubbleButton2?.isHidden = true
+                        self.myLabel2?.isHidden = true
+                        self.CatBubble!.run(SKAction.moveTo(x: -149.841,duration: 0.8))
                     }
                     
                 }
                 
-                if BallNode!.containsPoint(location){
+                if BallNode!.contains(location){
                     BallNode?.removeFromParent()
                     
                 }
-                if ProfileBallNode!.containsPoint(location){
+                if ProfileBallNode!.contains(location){
                     ProfileBallNode?.removeFromParent()
                 }
-                if ShoeProfileNode!.containsPoint(location){
+                if ShoeProfileNode!.contains(location){
                     ShoeProfileNode?.removeFromParent()
                     
                 }
-                if ShoeMoneyNode!.containsPoint(location){
+                if ShoeMoneyNode!.contains(location){
                     ShoeMoneyNode?.removeFromParent()
                 }
                 
-                if alertBoxNode!.containsPoint(location)  {
-                    let alertlLocation = touch.locationInNode(alertBoxNode!)
-                    if okButtonNode!.containsPoint(alertlLocation){
-                        alertBoxNode?.hidden = true
+                if alertBoxNode!.contains(location)  {
+                    let alertlLocation = touch.location(in: alertBoxNode!)
+                    if okButtonNode!.contains(alertlLocation){
+                        alertBoxNode?.isHidden = true
                         
                     }
                 }
@@ -616,14 +617,14 @@ class GameScene: SKScene {
     func ButtonClickMethod(PresentButton:SKSpriteNode)
     {
         PresentButton.alpha = 0.5
-        let waitAction = SKAction.waitForDuration(0.1)
-        let run = SKAction.runBlock {
+        let waitAction = SKAction.wait(forDuration: 0.1)
+        let run = SKAction.run {
             PresentButton.alpha = 1.0
         }
-         PresentButton.runAction(SKAction .sequence([waitAction,run]))
+        PresentButton.run(SKAction .sequence([waitAction,run]))
     }
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     }
 }

@@ -35,28 +35,28 @@ class SoChicScene: SKScene
     var countWorksDone : Int = 0
     var vickiSprite:SKSpriteNode?
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
         //MessageBoxNode
         listOfNames = ["fold shirts", "new outfits", "check sales","hang shirts"]
-        backgroundSprite = self.childNodeWithName("SoChicBackground") as? SKSpriteNode
+        backgroundSprite = self.childNode(withName: "SoChicBackground") as? SKSpriteNode
         let homeButtonTexture = SKTexture(imageNamed: "RedHome");
         let homeButtonPressedTexture = SKTexture(imageNamed: "RedHome");
         let  HomeButton = FTButtonNode(normalTexture:homeButtonTexture, selectedTexture:homeButtonPressedTexture, disabledTexture:homeButtonTexture);
-        HomeButton.position = CGPointMake(-635.609 , -25.0);
+        HomeButton.position = CGPoint(x: -635.609 ,y: -25.0);
         HomeButton.size = CGSize(width: 90, height: 80)
         HomeButton.zPosition = 5
         self.backgroundSprite!.addChild(HomeButton);
         HomeButton.actionTouchUpInside = FTButtonTarget.aBlock({ () -> Void in
             print("button touched")
-            let transition = SKTransition.revealWithDirection(.Right, duration: 0.8)
-            if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
+            let transition = SKTransition.reveal(with: .right, duration: 0.8)
+            if let scene = GameScene.unarchiveFromFile(file: "GameScene") as? GameScene {
                 // Configure the view.
                 let skView = self.view! as SKView
                 skView.showsFPS = true
                 skView.showsNodeCount = true
                 skView.ignoresSiblingOrder = true
-                scene.scaleMode = .AspectFill
+                scene.scaleMode = .aspectFill
                 scene.isLockToSoChick = false
                 
                 skView.presentScene(scene,transition: transition)
@@ -64,7 +64,7 @@ class SoChicScene: SKScene
             
         })
         
-        messageBox = backgroundSprite?.childNodeWithName("MessageBoxNode") as? SKSpriteNode
+        messageBox = backgroundSprite?.childNode(withName: "MessageBoxNode") as? SKSpriteNode
         
         
         let BubbleButtonTexture1 = SKTexture(imageNamed: "WorkButton");
@@ -75,22 +75,22 @@ class SoChicScene: SKScene
         workBubble4 = FTButtonNode(normalTexture:BubbleButtonTexture1, selectedTexture:BubbleButtonPressedTexture1, disabledTexture:BubbleButtonTexture1);
         
         
-        vickiSprite = backgroundSprite?.childNodeWithName("Vicki") as? SKSpriteNode
+        vickiSprite = backgroundSprite?.childNode(withName: "Vicki") as? SKSpriteNode
         
         BubbleSetup()
-        workButtonSetup(-10,ypoint: -100,workBubble:workBubble1! )
-        workButtonSetup(-156,ypoint: -100,workBubble:workBubble2! )
-        workButtonSetup(+650,ypoint: -50,workBubble:workBubble3! )
-        workButtonSetup(-720,ypoint: +50,workBubble:workBubble4! )
+        workButtonSetup(xpoint: -10,ypoint: -100,workBubble:workBubble1! )
+        workButtonSetup(xpoint: -156,ypoint: -100,workBubble:workBubble2! )
+        workButtonSetup(xpoint: +650,ypoint: -50,workBubble:workBubble3! )
+        workButtonSetup(xpoint: -720,ypoint: +50,workBubble:workBubble4! )
         
         workLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
         workLabel!.text = "rearrange"
         workLabel!.fontSize = 20
-        workLabel!.fontColor = UIColor.blackColor()
-        workLabel!.position = CGPoint(x:CGRectGetMidX(workBubble1!.frame)+165, y:CGRectGetMidY(workBubble1!.frame)+15)
+        workLabel!.fontColor = UIColor.black
+        workLabel!.position = CGPoint(x:(workBubble1!.frame.midX)+165, y:(workBubble1!.frame.midY)+15)
         workLabel!.zPosition = 11
         backgroundSprite!.addChild(workLabel!)
-        self.workLabel?.hidden = true
+        self.workLabel?.isHidden = true
         
         vickiAnimation()
         
@@ -109,13 +109,13 @@ class SoChicScene: SKScene
         self.backgroundSprite!.addChild(workBubble);
         workBubble.actionTouchUpInside = FTButtonTarget.aBlock({ () -> Void in
             if self.isCheck
-            {    self.SetupForTwoWorkDone(workBubble)
+            {    self.SetupForTwoWorkDone(WorkButton: workBubble)
                 
             } else{
-                self.setupForTwoHalfDone(workBubble)
+                self.setupForTwoHalfDone(WorkButton: workBubble)
             }
         })
-        workBubble.hidden = true
+        workBubble.isHidden = true
     }
     
     
@@ -127,7 +127,7 @@ class SoChicScene: SKScene
         let BubbleButtonPressedTexture1 = SKTexture(imageNamed: "Bubble");
         bubbleButton1 = FTButtonNode(normalTexture:BubbleButtonTexture1, selectedTexture:BubbleButtonPressedTexture1, disabledTexture:BubbleButtonTexture1);
         //PopGlamButton.setButtonLabel("Play",font: "Helvetica",fontSize: 40);
-        bubbleButton1!.position = CGPoint(x:CGRectGetMinX(self.messageBox!.frame)-85, y:CGRectGetMinY(self.messageBox!.frame)-55);
+        bubbleButton1!.position = CGPoint(x:(self.messageBox!.frame.minX)-85, y:(self.messageBox!.frame.minY)-55);
         bubbleButton1!.size = CGSize(width: 230, height: 70)
         bubbleButton1!.zPosition = 2
         self.backgroundSprite!.addChild(bubbleButton1!);
@@ -139,8 +139,8 @@ class SoChicScene: SKScene
             self.messageLabel?.removeFromParent()
             self.messageBox?.removeFromParent()
             
-            self.workBubble1?.hidden = false
-            self.workBubble4?.hidden = false
+            self.workBubble1?.isHidden = false
+            self.workBubble4?.isHidden = false
          })
         
         
@@ -150,8 +150,8 @@ class SoChicScene: SKScene
         bubbleLabel1 = SKLabelNode(fontNamed: "AvenirNext-Bold")
         bubbleLabel1!.text = "1 hour"
         bubbleLabel1!.fontSize = 15
-        bubbleLabel1!.fontColor = UIColor.blackColor()
-        bubbleLabel1!.position = CGPoint(x:CGRectGetMidX(self.bubbleButton1!.frame)-10, y:CGRectGetMidY(self.bubbleButton1!.frame)-3)
+        bubbleLabel1!.fontColor = UIColor.black
+        bubbleLabel1!.position = CGPoint(x:(self.bubbleButton1!.frame.midX)-10, y:(self.bubbleButton1!.frame.midY)-3)
         bubbleLabel1!.zPosition = 10
         backgroundSprite!.addChild(bubbleLabel1!)
         
@@ -162,7 +162,7 @@ class SoChicScene: SKScene
         let BubbleButtonPressedTexture = SKTexture(imageNamed: "OrangeBubble");
         bubbleButton2 = FTButtonNode(normalTexture:BubbleButtonTexture, selectedTexture:BubbleButtonPressedTexture, disabledTexture:BubbleButtonTexture);
         //PopGlamButton.setButtonLabel("Play",font: "Helvetica",fontSize: 40);
-        bubbleButton2!.position = CGPoint(x:CGRectGetMinX(self.messageBox!.frame)-85, y:CGRectGetMinY(self.messageBox!.frame)-110);
+        bubbleButton2!.position = CGPoint(x:(self.messageBox!.frame.minX)-85, y:(self.messageBox!.frame.minY)-110);
         bubbleButton2!.size = CGSize(width: 230, height: 70)
         bubbleButton2!.zPosition = 2
         self.backgroundSprite!.addChild(bubbleButton2!);
@@ -173,8 +173,8 @@ class SoChicScene: SKScene
             self.bubbleLabel2?.removeFromParent()
             self.messageLabel?.removeFromParent()
             self.messageBox?.removeFromParent()
-            self.workBubble1?.hidden = false
-            self.workBubble4?.hidden = false
+            self.workBubble1?.isHidden = false
+            self.workBubble4?.isHidden = false
             
         })
         
@@ -183,25 +183,25 @@ class SoChicScene: SKScene
         bubbleLabel2 = SKLabelNode(fontNamed: "AvenirNext-Bold")
         bubbleLabel2!.text = "4 hours"
         bubbleLabel2!.fontSize = 15
-        bubbleLabel2!.fontColor = UIColor.blackColor()
-        bubbleLabel2!.position = CGPoint(x:CGRectGetMidX(self.bubbleButton2!.frame)-20, y:CGRectGetMidY(self.bubbleButton2!.frame)-3)
+        bubbleLabel2!.fontColor = UIColor.black
+        bubbleLabel2!.position = CGPoint(x:(self.bubbleButton2!.frame.midX)-20, y:(self.bubbleButton2!.frame.midY)-3)
         bubbleLabel2!.zPosition = 10
         backgroundSprite!.addChild(bubbleLabel2!)
-        self.bubbleButton2?.hidden = true
-        self.bubbleLabel2?.hidden = true
-        self.bubbleButton1?.hidden = true
-        self.bubbleLabel1?.hidden = true
+        self.bubbleButton2?.isHidden = true
+        self.bubbleLabel2?.isHidden = true
+        self.bubbleButton1?.isHidden = true
+        self.bubbleLabel1?.isHidden = true
         
         
         messageLabel = SKLabelNode(fontNamed: "AvenirNext-Bold")
         messageLabel!.text = "How many hours do you want to work ?"
         messageLabel!.fontSize = 15
-        messageLabel!.fontColor = UIColor.blackColor()
-        messageLabel!.position = CGPoint(x:CGRectGetMaxX(self.messageBox!.frame)-147, y:CGRectGetMidY(self.messageBox!.frame))
+        messageLabel!.fontColor = UIColor.black
+        messageLabel!.position = CGPoint(x:(self.messageBox!.frame.midX)-147, y:(self.messageBox!.frame.midY))
         messageLabel!.zPosition = 11
         
         self.backgroundSprite!.addChild(messageLabel!)
-        self.messageLabel?.hidden = true
+        self.messageLabel?.isHidden = true
         
         
         
@@ -209,69 +209,69 @@ class SoChicScene: SKScene
     
     
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch: AnyObject in touches {
-            let location = touch.locationInNode(backgroundSprite!)
+            let location = touch.location(in: backgroundSprite!)
             
             
-            if messageBox!.containsPoint(location)  {
+            if messageBox!.contains(location)  {
                 
                 
                 if check
                 {
                     print("tapped!")
                     
-                    self.messageBox!.runAction(SKAction.moveToX((messageBox?.frame.origin.x)!-40,duration: 0.8))
-                    self.messageBox!.runAction(SKAction.scaleXTo(0.3, y : 0.35 ,duration: 0.8))
+                    self.messageBox!.run(SKAction.moveTo(x: (messageBox?.frame.origin.x)!-40,duration: 0.8))
+                    self.messageBox!.run(SKAction.scaleX(to: 0.3, y : 0.35 ,duration: 0.8))
                     //  bubbleButton.transform = CGAffineTransformMakeScale(2, 2)
-                    let waitAction = SKAction.waitForDuration(1.0)
-                    let run = SKAction.runBlock {
-                        self.bubbleButton1?.hidden = false
-                        self.bubbleLabel1?.hidden = false
+                    let waitAction = SKAction.wait(forDuration: 1.0)
+                    let run = SKAction.run {
+                        self.bubbleButton1?.isHidden = false
+                        self.bubbleLabel1?.isHidden = false
                         
                     }
                     
-                    let zoomInAction = SKAction.runBlock {
-                        self.backgroundSprite!.runAction(SKAction.scaleTo(1.1, duration: 0.8))
+                    let zoomInAction = SKAction.run {
+                        self.backgroundSprite!.run(SKAction.scale(to: 1.1, duration: 0.8))
                     }
-                    let alertBox = SKAction.runBlock {
-                        self.messageBox?.hidden = false
-                        self.messageLabel?.hidden = false
+                    let alertBox = SKAction.run {
+                        self.messageBox?.isHidden = false
+                        self.messageLabel?.isHidden = false
                         
                     }
                     
-                    let waitZoomAction = SKAction.waitForDuration(0.8)
-                    let waitSecondAction = SKAction.waitForDuration(0.3)
-                    let runSecond = SKAction.runBlock {
+                    let waitZoomAction = SKAction.wait(forDuration: 0.8)
+                    let waitSecondAction = SKAction.wait(forDuration: 0.3)
+                    let runSecond = SKAction.run {
                         
-                        self.bubbleButton2?.hidden = false
-                        self.bubbleLabel2?.hidden = false
+                        self.bubbleButton2?.isHidden = false
+                        self.bubbleLabel2?.isHidden = false
                     }
                     
-                    self.runAction(SKAction.sequence([zoomInAction,waitZoomAction,alertBox,waitAction,run,waitSecondAction,runSecond]))
+                    self.run(SKAction.sequence([zoomInAction,waitZoomAction,alertBox,waitAction,run,waitSecondAction,runSecond]))
                     check = false
                     
                 }
                 else
                     
                 {
-                    self.messageLabel?.hidden = true
+                    self.messageLabel?.isHidden = true
                     
-                    let zoomInAction1 = SKAction.scaleTo(1, duration: 1)
-                    let runAction = SKAction.runBlock {
+                    let zoomInAction1 = SKAction.scale(to: 1, duration: 1)
+                    let runAction = SKAction.run {
                         //self.bubbleButton?.hidden = false
                     }
-                    self.messageBox!.runAction(SKAction.scaleXTo(0.095,y:0.212, duration: 0.8))
+                    self.messageBox!.run(SKAction.scaleX(to: 0.095,y:0.212, duration: 0.8))
                     
                     
-                    let waitZoomAction = SKAction.waitForDuration(1)
-                    self.backgroundSprite!.runAction(SKAction.sequence([zoomInAction1,waitZoomAction,runAction]))
+                    let waitZoomAction = SKAction.wait(forDuration: 1)
+                    self.backgroundSprite!.run(SKAction.sequence([zoomInAction1,waitZoomAction,runAction]))
                     check = true
-                    self.bubbleButton1?.hidden = true
-                    self.bubbleLabel1?.hidden = true
-                    self.bubbleButton2?.hidden = true
-                    self.bubbleLabel2?.hidden = true
-                    self.messageBox!.runAction(SKAction.moveToX(139.777,duration: 0.8))
+                    self.bubbleButton1?.isHidden = true
+                    self.bubbleLabel1?.isHidden = true
+                    self.bubbleButton2?.isHidden = true
+                    self.bubbleLabel2?.isHidden = true
+                    self.messageBox!.run(SKAction.moveTo(x: 139.777,duration: 0.8))
                     
                     
                 }
@@ -289,7 +289,7 @@ class SoChicScene: SKScene
         isEnabled = false
         
         if checkVariable == 0{
-            workLabel!.position = CGPoint(x:CGRectGetMidX(WorkButton.frame)+90, y:CGRectGetMidY(WorkButton.frame)+10)
+            workLabel!.position = CGPoint(x:(WorkButton.frame.midX)+90, y:(WorkButton.frame.midY)+10)
         }
         
         
@@ -297,40 +297,40 @@ class SoChicScene: SKScene
         let WorkTexture2 = SKTexture(imageNamed: "6.png")
         let WorkTexture3 = SKTexture(imageNamed: "7.png")
         let WorkTexture4 = SKTexture(imageNamed: "WorkDoneButton")
-        let anim =  SKAction.animateWithTextures([WorkTexture1,WorkTexture2,WorkTexture3,WorkTexture4], timePerFrame: 0.05)
-        WorkButton.runAction(anim)
-        let runSecond = SKAction.runBlock {
+        let anim =  SKAction.animate(with: [WorkTexture1,WorkTexture2,WorkTexture3,WorkTexture4], timePerFrame: 0.05)
+        WorkButton.run(anim)
+        let runSecond = SKAction.run {
             
-            WorkButton.runAction(SKAction.scaleXTo(3.8, y: 1.2, duration: 0.5))
+            WorkButton.run(SKAction.scaleX(to: 3.8, y: 1.2, duration: 0.5))
         }
         
-        let runFirst = SKAction.moveToX((WorkButton.frame.origin.x)+114, duration: 0.5)
-        let waitDuration = SKAction.waitForDuration(0.6)
-        let runLabelAction = SKAction.runBlock {
-            self.workLabel?.hidden = true
-            WorkButton.label.hidden = true
-            WorkButton.setButtonLabel((self.workLabel?.text)!, font: "AvenirNext-Bold", fontSize: 20, color: UIColor.blackColor())
+        let runFirst = SKAction.moveTo(x: (WorkButton.frame.origin.x)+114, duration: 0.5)
+        let waitDuration = SKAction.wait(forDuration: 0.6)
+        let runLabelAction = SKAction.run {
+            self.workLabel?.isHidden = true
+            WorkButton.label.isHidden = true
+            WorkButton.setButtonLabel(title: (self.workLabel?.text)! as NSString, font: "AvenirNext-Bold", fontSize: 20, color: UIColor.black)
             WorkButton.setScaleForLabel()
-            WorkButton.label.hidden = false
+            WorkButton.label.isHidden = false
             self.isEnabled = true
         }
-        ++checkVariable
-        WorkButton.runAction(SKAction.group([runSecond,runFirst]))
-        self.runAction(SKAction.sequence([waitDuration,runLabelAction]))
+        checkVariable+1
+        WorkButton.run(SKAction.group([runSecond,runFirst]))
+        self.run(SKAction.sequence([waitDuration,runLabelAction]))
         isCheck = false
         if checkVariable >= 3
         {
-            let waitDuration = SKAction.waitForDuration(0.6)
-            let runLabelAction = SKAction.runBlock {
-                self.workBubble3?.hidden = false
-                self.workBubble2?.hidden = false
-                self.workLabel?.hidden = true
+            let waitDuration = SKAction.wait(forDuration: 0.6)
+            let runLabelAction = SKAction.run {
+                self.workBubble3?.isHidden = false
+                self.workBubble2?.isHidden = false
+                self.workLabel?.isHidden = true
                 WorkButton.removeFromParent()
-                self.workLabel!.text = self.listOfNames?.objectAtIndex(self.countWorksDone) as? String
-                self.countWorksDone++
+                self.workLabel!.text = self.listOfNames?.object(at: self.countWorksDone) as? String
+                self.countWorksDone+1
                 
             }
-            WorkButton.runAction(SKAction.sequence([waitDuration,runLabelAction]))
+            WorkButton.run(SKAction.sequence([waitDuration,runLabelAction]))
             checkVariable = 0
             isCheck = true
         }
@@ -344,11 +344,10 @@ class SoChicScene: SKScene
         let WorkTexture2 = SKTexture(imageNamed: "2.png")
         let WorkTexture3 = SKTexture(imageNamed: "3.png")
         let WorkTexture4 = SKTexture(imageNamed: "WorkHalfDone")
-        let anim =  SKAction.animateWithTextures([WorkTexture1,WorkTexture2,WorkTexture3,WorkTexture4], timePerFrame: 0.05)
-        WorkButton.runAction(anim)
+        let anim =  SKAction.animate(with: [WorkTexture1,WorkTexture2,WorkTexture3,WorkTexture4], timePerFrame: 0.05)
+        WorkButton.run(anim)
         isCheck = true
-        ++checkVariable
-    }
+        checkVariable+1    }
     func adjustLabelFontSizeToFitRect(labelNode:SKLabelNode, rect:CGRect) {
         
         // Determine the font scaling factor that should let the label text fit in the given rectangle.
@@ -363,12 +362,13 @@ class SoChicScene: SKScene
     
     func vickiAnimation () {
         
+        
         let vickiTextureAtlas = SKTextureAtlas(named: "Vicki")
         let vickiTextureNames = vickiTextureAtlas.textureNames as Array
-        let sortedVickiTextureNames = vickiTextureNames.sort { (var s1, var s2) -> Bool in
-            s1 = s1.stringByReplacingOccurrencesOfString(".png", withString: "")
-            s2 = s2.stringByReplacingOccurrencesOfString(".png", withString: "")
-            return Int(s1) < Int(s2)
+        let sortedVickiTextureNames = vickiTextureNames.sorted { (  s1,  s2) -> Bool in
+            //s1 = s1.stringByReplacingOccurrencesOfString(".png", withString: "")
+            //s2 = s2.stringByReplacingOccurrencesOfString(".png", withString: "")
+            return s1 < s2
         }
         
         var vickiTexturesArray = [SKTexture]()
@@ -378,15 +378,15 @@ class SoChicScene: SKScene
             vickiTexturesArray.append(vickiTexture)
         }
         
-        let vickiHandAction = SKAction.animateWithTextures(vickiTexturesArray, timePerFrame: 0.25, resize: false, restore: true)
-        vickiSprite?.runAction(SKAction.repeatActionForever(vickiHandAction))
+        let vickiHandAction = SKAction.animate(with: vickiTexturesArray, timePerFrame: 0.25, resize: false, restore: true)
+        vickiSprite?.run(SKAction.repeatForever(vickiHandAction))
         
     }
     
     
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        GameSceneController.sharedInstance.handleTouchMove(touches, sprite: backgroundSprite, scene: self)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        GameSceneController.sharedInstance.handleTouchMove(touches: touches, sprite: backgroundSprite, scene: self)
     }
 }
         

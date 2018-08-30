@@ -23,7 +23,7 @@
 import CoreGraphics
 
 /** The value of π as a CGFloat */
-let π = CGFloat(M_PI)
+let π = CGFloat(Double.pi)
 
 extension CGFloat {
   /**
@@ -43,7 +43,7 @@ extension CGFloat {
   /**
    * Ensures that the float value stays between the given values, inclusive.
    */
-  func clamped(v1: CGFloat, _ v2: CGFloat) -> CGFloat {
+  func clamped(_ v1: CGFloat, _ v2: CGFloat) -> CGFloat {
     let min = v1 < v2 ? v1 : v2
     let max = v1 > v2 ? v1 : v2
     return self < min ? min : (self > max ? max : self)
@@ -52,7 +52,7 @@ extension CGFloat {
   /**
    * Ensures that the float value stays between the given values, inclusive.
    */
-  mutating func clamp(v1: CGFloat, _ v2: CGFloat) -> CGFloat {
+  mutating func clamp(_ v1: CGFloat, _ v2: CGFloat) -> CGFloat {
     self = clamped(v1, v2)
     return self
   }
@@ -74,7 +74,7 @@ extension CGFloat {
   /**
    * Returns a random floating point number in the range min...max, inclusive.
    */
-  static func random(min min: CGFloat, max: CGFloat) -> CGFloat {
+  static func random( min: CGFloat, max: CGFloat) -> CGFloat {
     assert(min < max)
     return CGFloat.random() * (max - min) + min
   }
@@ -93,7 +93,7 @@ extension CGFloat {
  */
 func shortestAngleBetween(angle1: CGFloat, angle2: CGFloat) -> CGFloat {
     let twoπ = π * 2.0
-    var angle = (angle2 - angle1) % twoπ
+    var angle = (angle2 - angle1).truncatingRemainder(dividingBy:twoπ)
     if (angle >= π) {
         angle = angle - twoπ
     }
